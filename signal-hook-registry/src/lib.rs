@@ -165,6 +165,11 @@ impl Slot {
         // Android is broken and uses different int types than the rest (and different depending on
         // the pointer width). This converts the flags to the proper type no matter what it is on
         // the given platform.
+
+        #[cfg(target_os = "nto")]
+        let flags = 0;
+
+        #[cfg(not(target_os = "nto"))]
         let flags = libc::SA_RESTART;
         #[allow(unused_assignments)]
         let mut siginfo = flags;
